@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "dtoplak.vscode-glsllint",
+        "xaver.clang-format",
+        "slevesque.shader",
+        "cadenas.vscode-glsllint"
+    ]
+}
