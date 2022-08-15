@@ -459,7 +459,7 @@ void main()
 })";
 
 void error_callback(int error, const char* description) {
-	fprintf(stderr, "Error: %s\n", description);
+	fprintf(stderr, "Error: %s\n %i", description, error);
 }
 
 int main(void)
@@ -506,7 +506,6 @@ int main(void)
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    int samples = 4;
     float quadVerts[] = {
         -1.0, -1.0,     0.0, 0.0,
         -1.0, 1.0,      0.0, 1.0,
@@ -573,12 +572,18 @@ int main(void)
     glUseProgram(shaderProgram);
     glUniform2fv(glGetUniformLocation(shaderProgram, "iResolution"), 1, &screen[0]);
 
-
+    const GLubyte* renderer = glGetString (GL_RENDERER); // get renderer string
+    const GLubyte* version = glGetString (GL_VERSION); // version as a string
+    printf("Renderer: %s\n", renderer);
+    printf("OpenGL version supported %s\n", version);
+    float iTime = 0;
     while (!glfwWindowShouldClose(window))
     {
 
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
+        printf("%f\n", deltaTime);
+        iTime += .01;
         lastFrame = currentFrame; 
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -594,7 +599,7 @@ int main(void)
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glUseProgram(shaderProgram);
-        glUniform1f(glGetUniformLocation(shaderProgram, "iTime"), (int)currentFrame % 60); 
+        glUniform1f(glGetUniformLocation(shaderProgram, "iTime"), iTime);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
