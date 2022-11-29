@@ -6,20 +6,18 @@
     "configurations": [
         {
             "name": "Debug GLFWLive",
-            "type": "cppdbg",
+            "type": "lldb-vscode",
             "request": "launch",
             "program": "${workspaceFolder}/build/debug/glfwlive",
             "args": [
               "localhost",
               "5672"
             ],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}/glfwlive",
             "environment": [{
                 "name":"DISPLAY", "value":"${env:DISPLAY}"
             }],
             "externalConsole": false,
-            "MIMode": "lldb",
             "preLaunchTask": "Build"
         }
     ]
